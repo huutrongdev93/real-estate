@@ -1,0 +1,28 @@
+{
+    "name": "Sàn Bất Động Sản",
+    "class": "RealEstate",
+    "url": "https://sikido.vn",
+    "description": "Tạo và quản lý bất động sản",
+    "author": "Nguyễn Hữu Trọng",
+    "version": "2.0.0",
+    "thumb": "assets/thumb.png",
+    "providers": [
+        "RealEstate\\Providers\\PluginServiceProvider"
+    ],
+    "autoload": {
+        "alias": "RealEstate",
+        "psr-4": {
+            "RealEstate\\Template": "app/Template"
+        }
+    },
+    "aliases": {
+        "controller": {
+            "RealEstate\\Controllers\\Admin\\PropertyController": "property",
+            "RealEstate\\Controllers\\Admin\\PropertyCategoryController": "property_category",
+            "RealEstate\\Controllers\\Admin\\FeaturesController": "re_features",
+            "RealEstate\\Controllers\\Admin\\BookingController": "re_booking",
+            "RealEstate\\Controllers\\Admin\\PropertyFeedbackController": "re_feedback"
+        }
+    }
+}
+

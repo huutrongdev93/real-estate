@@ -1,0 +1,1 @@
+@do_action('content_property_detail', $object)

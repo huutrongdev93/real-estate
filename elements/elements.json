@@ -1,0 +1,61 @@
+{
+    "property_detail": {
+        "PropertyDetailSliderElement" : {
+            "path": "elements/property-detail/slider/property-detail-slider.widget.php"
+        },
+        "PropertyDetailContentElement" : {
+            "path": "elements/property-detail/content/property-detail-content.widget.php"
+        },
+        "PropertyDetailContentBoxElement" : {
+            "path": "elements/property-detail/content-box/property-detail-content-box.widget.php"
+        },
+        "PropertyDetailSidebarContactElement" : {
+            "path": "elements/property-detail/sidebar-contact/property-detail-sidebar-contact.widget.php"
+        },
+        "PropertyDetailSidebarBookingElement" : {
+            "path": "elements/property-detail/sidebar-booking/property-detail-sidebar-booking.widget.php"
+        }
+    },
+    "property_index":
+    {
+        "PropertyIndexTitleElement" : {
+            "path": "elements/property-index/title/property-index-title.widget.php"
+        },
+        "PropertyIndexSearchElement" : {
+            "path": "elements/property-index/search/property-index-search.widget.php"
+        },
+        "PropertyIndexDataElement" : {
+            "path": "elements/property-index/properties/property-index-data.widget.php"
+        },
+        "PropertyIndexBreadcrumbElement" : {
+            "path": "elements/property-index/breadcrumb/property-index-breadcrumb.widget.php"
+        },
+        "PropertyIndexDescriptionElement" : {
+            "path": "elements/property-index/description/property-index-description.widget.php"
+        },
+        "PropertyIndexContentElement" : {
+            "path": "elements/property-index/content/property-index-content.widget.php"
+        }
+    },
+    "property_all":
+    {
+        "PropertyIndexTitleElement" : {
+            "path": "elements/property-index/title/property-index-title.widget.php"
+        },
+        "PropertyIndexSearchElement" : {
+            "path": "elements/property-index/search/property-index-search.widget.php"
+        },
+        "PropertyIndexDataElement" : {
+            "path": "elements/property-index/properties/property-index-data.widget.php"
+        },
+        "PropertyIndexBreadcrumbElement" : {
+            "path": "elements/property-index/breadcrumb/property-index-breadcrumb.widget.php"
+        },
+        "PropertyIndexDescriptionElement" : {
+            "path": "elements/property-index/description/property-index-description.widget.php"
+        },
+        "PropertyIndexContentElement" : {
+            "path": "elements/property-index/content/property-index-content.widget.php"
+        }
+    }
+}
