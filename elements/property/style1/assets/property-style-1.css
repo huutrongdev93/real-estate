@@ -1,0 +1,14 @@
+.PropertyElementStyle1 {
+  overflow: hidden;
+}
+.PropertyElementStyle1 .box-content {
+  overflow: hidden;
+  position: relative;
+}
+.PropertyElementStyle1 .item-property {
+  margin-bottom: var(--bs-gutter-x);
+}
+.PropertyElementStyle1 .wg-loading {
+  min-height: 300px;
+}
+/*# sourceMappingURL=property-style-1.css.map */

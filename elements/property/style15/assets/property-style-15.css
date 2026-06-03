@@ -1,0 +1,102 @@
+.PropertyElementStyle15 .property-s15-header-wrapper {
+  position: relative;
+  margin-bottom: 15px;
+  padding: 0;
+  text-align: left;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.PropertyElementStyle15 .property-s15-header {
+  width: calc(100% - var(--tabs-heading-width));
+}
+.PropertyElementStyle15 .property-s15-categories {
+  width: var(--tabs-heading-width);
+  overflow: hidden;
+  margin-bottom: 0;
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0;
+}
+.PropertyElementStyle15 .property-s15-categories ul {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  padding: 0;
+  margin: 0 20px;
+  text-align: center;
+}
+.PropertyElementStyle15 .property-s15-categories ul::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+.PropertyElementStyle15 .property-s15-categories ul::-webkit-scrollbar-track {
+  -webkit-box-shadow: none;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  height: 0;
+}
+.PropertyElementStyle15 .property-s15-categories ul::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  background: rgba(255, 0, 0, 0.8);
+  -webkit-box-shadow: none;
+}
+.PropertyElementStyle15 .property-s15-categories li {
+  display: inline-block;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin: 0 10px 0 0;
+  position: relative;
+}
+.PropertyElementStyle15 .property-s15-categories li a {
+  border: 1px solid #000;
+  background-color: #000;
+  color: #fff;
+  padding: 5px 15px;
+  display: block;
+  border-radius: 20px;
+  font-size: 13px;
+}
+.PropertyElementStyle15 .property-s15-categories li a:hover {
+  border: 1px solid #000;
+  background-color: #fff;
+  color: #000;
+}
+.PropertyElementStyle15 .property-s15-categories li a.active {
+  border: 1px solid #000;
+  background-color: #fff;
+  color: #000;
+}
+.PropertyElementStyle15 .property-s15-content {
+  overflow: hidden;
+}
+@media (max-width: 768px) {
+  .PropertyElementStyle15 .property-s15-header-wrapper {
+    flex-direction: column;
+  }
+  .PropertyElementStyle15 .property-s15-header {
+    width: 100%;
+  }
+  .PropertyElementStyle15 .property-s15-categories {
+    width: 100%;
+    position: relative;
+    top: 0;
+    left: 0;
+    overflow-x: auto;
+    -ms-scroll-snap-type: x proximity;
+    scroll-snap-type: x proximity;
+    gap: 1rem;
+  }
+  .PropertyElementStyle15 .property-s15-categories li {
+    display: inline-block;
+    scroll-snap-stop: normal;
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+  }
+}
+/*# sourceMappingURL=property-style-15.css.map */
