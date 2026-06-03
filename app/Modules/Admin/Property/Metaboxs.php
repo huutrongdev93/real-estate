@@ -100,6 +100,10 @@ class Metaboxs
             $locationDetail = Property::getMeta($object->id, 'location_detail');
 
             $juridical = Property::getMeta($object->id, 'juridical');
+
+            $width = Property::getMeta($object->id, 'width');
+
+            $length = Property::getMeta($object->id, 'length');
         }
 
         $form                = form();
@@ -108,15 +112,19 @@ class Metaboxs
 
         $form->select('bedroom', PropertyHelper::getBedroom(), ['label' => trans('real-estate::property.bedroom'), 'start' => 4], $object->bedroom ?? 1);
 
-        $form->select('bathroom', PropertyHelper::getBathroom(), ['label' => trans('real-estate::property.bathroom'), 'start' => 4], $object->bathroom ?? 4);
+        $form->select('bathroom', PropertyHelper::getBathroom(), ['label' => trans('real-estate::property.bathroom'), 'start' => 4], $object->bathroom ?? 1);
 
         $form->select('direction', PropertyHelper::getDirection('option'), ['label' => trans('real-estate::property.direction'), 'start' => 4], $object->direction ?? '');
 
         $form->text('juridical', ['label' => trans('real-estate::property.juridical'), 'start' => 4], $juridical ?? '');
 
+        $form->number('width', ['label' => trans('real-estate::property.width').'(m)', 'start' => 4], $width ?? '');
+
+        $form->number('length', ['label' => trans('real-estate::property.length').'(m)', 'start' => 4], $length ?? '');
+
         $form->tab('location', ['label' => trans('real-estate::property.location'), 'start' => 4], $location ?? '')->options(PropertyHelper::getLocation());
 
-        $form->number('location_detail', ['label' => trans('real-estate::property.specification.location_detail'), 'start' => 4], $locationDetail ?? '');
+        $form->number('location_detail', ['label' => trans('real-estate::property.specification.location_detail'), 'start' => 4], $locationDetail ?? '')->condition('location', ['alley']);
 
         $form->repeater('more_specifications', [
             'label'  => trans('real-estate::property.specification.more'),
@@ -139,7 +147,9 @@ class Metaboxs
         $ward     = (int) $request->input('ward');
 
         $lat           = $request->input('lat');
+
         $lng           = $request->input('lng');
+
         $googleMapLink = $request->input('google_map_link');
 
         Property::insert(['id' => $id, 'address' => $address, 'city' => $city, 'ward' => $ward]);
@@ -168,6 +178,8 @@ class Metaboxs
 
         Property::updateMeta($id, 'location', $request->input('location'));
         Property::updateMeta($id, 'location_detail', (int) $request->input('location_detail'));
+        Property::updateMeta($id, 'width', (int) $request->input('width'));
+        Property::updateMeta($id, 'length', (int) $request->input('length'));
         Property::updateMeta($id, 'juridical', $request->input('juridical'));
         Property::updateMeta($id, 'lat', $lat);
         Property::updateMeta($id, 'lng', $lng);

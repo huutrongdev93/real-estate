@@ -32,6 +32,10 @@ class PropertyDetail
 
         $object->juridical       = Property::getMeta($object->id, 'juridical', true);
 
+        $object->width       = (int)Property::getMeta($object->id, 'width', true);
+
+        $object->length       = (int)Property::getMeta($object->id, 'length', true);
+
         echo view('real-estate::property/detail/layout', compact('object'));
     }
 
@@ -132,6 +136,16 @@ class PropertyDetail
                 'value' => $object->area ? $object->area . ' m²' : trans('real-estate::property.detail.not_available'),
                 'icon'  => asset('real-estate::images/icon-area.png'),
             ],
+            'width' => [
+                'label' => trans('real-estate::property.width'),
+                'value' => (!empty($object->width)) ? $object->width . ' m' : 0,
+                'icon'  => asset('real-estate::images/icon-width.png'),
+            ],
+            'length' => [
+                'label' => trans('real-estate::property.length'),
+                'value' => (!empty($object->length)) ? $object->length . ' m' : 0,
+                'icon'  => asset('real-estate::images/icon-length.png'),
+            ],
             'price' => [
                 'label' => trans('real-estate::property.detail.price_label'),
                 'value' => PropertyHelper::getPriceFull($object->price, $object->unit),
@@ -173,8 +187,27 @@ class PropertyDetail
                 $specifications[$key] = [
                     'label' => $spec['title'] ?? '',
                     'value' => $spec['content'] ?? '',
-                    'icon'  => asset($spec['icon']),
+                    'icon'  => asset('source/'.$spec['icon']),
                 ];
+            }
+        }
+
+        foreach ($specifications as $key => $spec)
+        {
+            if(!is_string($spec['value']))
+            {
+                unset($specifications[$key]);
+                continue;
+            }
+
+            if(empty($spec['value']))
+            {
+                unset($specifications[$key]);
+            }
+
+            if($object->property_type == 3 && ($key == 'bedroom' || $key == 'bathroom'))
+            {
+                unset($specifications[$key]);
             }
         }
 

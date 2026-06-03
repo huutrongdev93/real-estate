@@ -169,8 +169,6 @@ $(function() {
 
             if (this.filters.city !== '' && this.filters.city !== 0)
             {
-                this.filters.city = parseInt(this.filters.city);
-
                 let control = this.elements.divCityOptions.closest('.city-control');
 
                 this.location.city.value = this.filters.city;

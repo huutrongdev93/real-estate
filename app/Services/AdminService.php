@@ -5,6 +5,7 @@ use RealEstate\Models\Booking;
 use RealEstate\Models\PropertyCategory;
 use RealEstate\Models\PropertyFeedback;
 use SkillDo\Cache\Cache;
+use SkillDo\Cms\Location\Location2;
 use SkillDo\Cms\Menu\AdminMenu;
 use SkillDo\Cms\Support\Admin;
 use SkillDo\Cms\Support\Cms;
@@ -139,26 +140,34 @@ class AdminService
 
         $listObject['property_sell_categories']['data'][0] = (object)['id' => 0, 'name' => '<b>' . trans('real-estate::admin.menu.property_sell') . '</b>'];
 
+        //Theo danh mục bất động sản bán
         $categories = PropertyCategory::where('type', 'sell')->multilevel();
 
-        if (have_posts($categories))
+        if (hasItems($categories))
         {
-            foreach ($categories as $key => $datum)
+            foreach ($categories as $datum)
             {
-                if (is_string($datum) && is_numeric($key))
-                {
-                    if ($key == 0) continue;
+                if (!isset($datum->id)) continue;
 
-                    $listObject['property_sell_categories']['data'][$key] = (object)['id' => $key, 'name' => $datum];
-                }
-                else
-                {
-                    if (!isset($datum->id)) continue;
-
-                    $listObject['property_sell_categories']['data'][$datum->id] = (object)['id' => $datum->id, 'name' => $datum->name];
-                }
+                $listObject['property_sell_categories']['data'][$datum->id] = (object)['id' => $datum->id, 'name' => $datum->name];
             }
         }
+        //Theo tỉnh thành phố
+        $locations = Location2::provinces();
+
+        if(hasItems($locations))
+        {
+            foreach ($locations as $location)
+            {
+                if (!isset($location->id)) continue;
+
+                $listObject['property_sell_categories']['data']['location_' . $location->id] = (object)[
+                    'id' => 'location_' . $location->id,
+                    'name' => $location->name
+                ];
+            }
+        }
+
 
         $listObject['property_rent_categories'] = [
             'label' => trans('real-estate::admin.menu.rent_categories'),
@@ -170,27 +179,33 @@ class AdminService
 
         $categories = PropertyCategory::where('type', 'rent')->multilevel();
 
-        if (have_posts($categories))
+        if (hasItems($categories))
         {
-            foreach ($categories as $key => $datum)
+            foreach ($categories as $datum)
             {
-                if (is_string($datum) && is_numeric($key))
-                {
-                    if ($key == 0) continue;
-                    $listObject['property_rent_categories']['data'][$key] = (object)['id' => $key, 'name' => $datum];
-                }
-                else
-                {
-                    if (!isset($datum->id)) continue;
-                    $listObject['property_rent_categories']['data'][$datum->id] = (object)['id' => $datum->id, 'name' => $datum->name];
-                }
+                if (!isset($datum->id)) continue;
+
+                $listObject['property_rent_categories']['data'][$datum->id] = (object)['id' => $datum->id, 'name' => $datum->name];
+            }
+        }
+
+        if(hasItems($locations))
+        {
+            foreach ($locations as $location)
+            {
+                if (!isset($location->id)) continue;
+
+                $listObject['property_rent_categories']['data']['location_' . $location->id] = (object)[
+                    'id' => 'location_' . $location->id,
+                    'name' => $location->name
+                ];
             }
         }
 
         return $listObject;
     }
 
-    static function menuItemData(array $data, int $id): array
+    static function menuItemData($data, $id): array
     {
         if ($data['object_type'] == 'property_sell_categories')
         {
@@ -199,6 +214,19 @@ class AdminService
                 $data['name']      = trans('real-estate::admin.menu.property_sell');
                 $data['slug']      = config('real-estate::routes.sell');
                 $data['object_id'] = 0;
+            }
+            else if(str_starts_with($id, 'location_'))
+            {
+                $locationId = str_replace('location_', '', $id);
+
+                $object = Location2::provinces($locationId);
+
+                if (hasItems($object))
+                {
+                    $data['name']      = $object->name;
+                    $data['slug']      = config('real-estate::routes.sell').'/' . $object->slugId;
+                    $data['object_id'] = 'location_' . $locationId;
+                }
             }
             else
             {
@@ -223,6 +251,19 @@ class AdminService
                 $data['name']      = trans('real-estate::admin.menu.property_rent');
                 $data['slug']      = config('real-estate::routes.rent');
                 $data['object_id'] = 0;
+            }
+            else if(str_starts_with($id, 'location_'))
+            {
+                $locationId = str_replace('location_', '', $id);
+
+                $object = Location2::provinces($locationId);
+
+                if (hasItems($object))
+                {
+                    $data['name']      = $object->name;
+                    $data['slug']      = config('real-estate::routes.rent').'/' . $object->slugId;
+                    $data['object_id'] = 'location_' . $locationId;
+                }
             }
             else
             {

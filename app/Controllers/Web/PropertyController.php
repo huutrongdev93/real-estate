@@ -89,6 +89,11 @@ class PropertyController extends Controller
 
         $layout = new ThemeLayoutView('property_all', []);
 
+        if(empty($layout) || empty($layout->getBuilderKey()))
+        {
+            $layout = new ThemeLayoutView('property_index', []);
+        }
+
         return Cms::view(
             apply_filters('theme_property_index_view', $layout->view(), []),
             apply_filters('theme_property_index_layout', $layout->layout(), [])

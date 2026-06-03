@@ -6,17 +6,24 @@
     font-weight: 400;
     line-height: 12px;
 }
-.label-1 {
-    background: rgba(243,116,6,.1);
-    color: #ef7733;
-}
-.label-2 {
-    background: rgba(21,90,169,.1);
-    color: #242933;
-}
-.label-3 {
-    background-color: #a6a6a6;
-    color: #fff;
+.label
+{
+    &-rent {
+        background: rgb(6 61 243 / 0.1);
+        color: #3375ef;
+    }
+    &-1, &-sell {
+        background: rgba(243,116,6,.1);
+        color: #ef7733;
+    }
+    &-2 {
+        background: rgba(21,90,169,.1);
+        color: #242933;
+    }
+    &-3 {
+        background-color: #a6a6a6;
+        color: #fff;
+    }
 }
 
 .collection-wrapper {
@@ -24,21 +31,25 @@
     gap: 5px;
 }
 
-.column-name .column-collection .label {
-    display: inline-block;
-    border-radius: 8px;
-    color: #fff;
-    font-size: 10px;
-    background-color: #ccc;
-    cursor: pointer;
-    opacity: 0.5;
-}
-
-.column-name .column-collection .active {
-    background-color: #dfe7ff;
-    color: var(--theme-color);
-    font-weight: bold;
-    opacity: 1;
+.column-name {
+    .column-collection
+    {
+        .label {
+            display: inline-block;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 10px;
+            background-color: #ccc;
+            cursor: pointer;
+            opacity: 0.5;
+        }
+        .active {
+            background-color: #dfe7ff;
+            color: var(--theme-color);
+            font-weight: bold;
+            opacity: 1;
+        }
+    }
 }
 
 /* ===== WRAPPER ===== */

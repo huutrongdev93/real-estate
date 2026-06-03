@@ -6,7 +6,6 @@
             @include('real-estate::search/categories-control')
             @include('real-estate::search/price-control', ['prices' => $priceSell])
             @include('real-estate::search/area-control')
-            @include('real-estate::search/collection-control')
             @do_action('property_search_controls')
         </div>
         <div class="re-search-more">

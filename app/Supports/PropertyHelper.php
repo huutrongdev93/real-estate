@@ -13,6 +13,7 @@ class PropertyHelper
     static public function getBedroom(string $key = '')
     {
         $data = [
+            '0'   => '0 ' . trans('real-estate::property.bedroom'),
             '1'   => '1 ' . trans('real-estate::property.bedroom'),
             '2'   => '2 ' . trans('real-estate::property.bedroom'),
             '3'   => '3 ' . trans('real-estate::property.bedroom'),
@@ -30,6 +31,7 @@ class PropertyHelper
     static public function getBathroom(string $key = '')
     {
         $data = [
+            '0'   => '0 ' . trans('real-estate::property.bathroom'),
             '1'   => '1 ' . trans('real-estate::property.bathroom'),
             '2'   => '2 ' . trans('real-estate::property.bathroom'),
             '3'   => '3 ' . trans('real-estate::property.bathroom'),
@@ -372,6 +374,33 @@ class PropertyHelper
             'filters' => apply_filters('property_controllers_index_filters', $filters),
             'objects' => apply_filters('property_controllers_index_objects', $query->get()),
             'pagination' => $pagination,
+        ];
+    }
+
+    static public function getSearchPriceSell(): array
+    {
+        return [
+            'duoi-500-trieu'       => trans('real-estate::property.price.sell.below_500m'),
+            '500-den-800-trieu'    => trans('real-estate::property.price.sell.500_800'),
+            '800-den-1000-trieu'   => trans('real-estate::property.price.sell.800_1b'),
+            '1000-den-2000-trieu'  => trans('real-estate::property.price.sell.1_2b'),
+            '2000-den-3000-trieu'  => trans('real-estate::property.price.sell.2_3b'),
+            '3000-den-5000-trieu'  => trans('real-estate::property.price.sell.3_5b'),
+            '5000-den-10000-trieu' => trans('real-estate::property.price.sell.5_10b'),
+            'tren-10000-trieu'     => trans('real-estate::property.price.sell.above_10b'),
+        ];
+    }
+
+    static public function getSearchPriceRent(): array
+    {
+        return [
+            'duoi-5-trieu'    => trans('real-estate::property.price.rent.below_5m'),
+            '5-den-10-trieu'  => trans('real-estate::property.price.rent.5_10'),
+            '10-den-20-trieu' => trans('real-estate::property.price.rent.10_20'),
+            '20-den-35-trieu' => trans('real-estate::property.price.rent.20_35'),
+            '35-den-50-trieu' => trans('real-estate::property.price.rent.35_50'),
+            '50-den-80-trieu' => trans('real-estate::property.price.rent.50_80'),
+            'tren-80-trieu'   => trans('real-estate::property.price.rent.above_80'),
         ];
     }
 }

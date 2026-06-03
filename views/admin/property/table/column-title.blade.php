@@ -1,5 +1,4 @@
-<h3 style="max-width:350px; line-height:20px; margin-bottom:5px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; text-overflow:ellipsis;">
-    <span class="label-1">{!! \RealEstate\Supports\PropertyHelper::getType($item->type) !!}</span>
+<h3 style="max-width:290px; line-height:20px; margin-bottom:5px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; text-overflow:ellipsis;">
     {!! $item->name !!}
 </h3>
 <div class="d-flex gap-2">

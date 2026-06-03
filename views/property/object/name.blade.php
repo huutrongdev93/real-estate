@@ -1,2 +1,2 @@
-<p class="heading">{!! $item->name !!}</p>
+<p class="name">{!! $item->name !!}</p>
 

@@ -50,13 +50,10 @@ class Table extends SKDObjectTable
                 }),
             ],
             'detail' => [
-                'label'  => trans('real-estate::property.table.room'),
+                'label'  => trans('real-estate::property.area'),
                 'column' => fn($item, $args) => ColumnView::make('info', $item, $args)->html(function ($column)
                 {
-                    echo view('real-estate::admin/property/table/column-info', [
-                        'item'        => $column->item,
-                        'collections' => RealEstateHelper::collections(),
-                    ]);
+                    echo $column->item->area . ' m<sup>2</sup>';
                 }),
             ],
             'city' => [
@@ -72,6 +69,13 @@ class Table extends SKDObjectTable
                     if (have_posts($column->item->category)) {
                         echo sprintf('<span>%s</span>', $column->item->category->name);
                     }
+                }),
+            ],
+            'type' => [
+                'label'  => trans('real-estate::property.table.type'),
+                'column' => fn($item, $args) => ColumnView::make('type', $item, $args)->html(function ($column)
+                {
+                    echo '<span class="label-'.$column->item->type.'">'.\RealEstate\Supports\PropertyHelper::getType($column->item->type).'</span>';
                 }),
             ],
             'status' => [

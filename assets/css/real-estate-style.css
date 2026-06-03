@@ -344,7 +344,7 @@
   position: relative;
   padding: 25px 10px;
 }
-.item-property .info .heading {
+.item-property .info .name {
   color: #252525;
   font-weight: 700;
   font-size: 14px;
@@ -357,7 +357,7 @@
   height: 50px;
   margin-bottom: 12px;
 }
-.item-property .info .heading a {
+.item-property .info .name a {
   color: currentColor;
 }
 .item-property .info .status {

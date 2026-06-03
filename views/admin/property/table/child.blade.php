@@ -157,7 +157,7 @@
                         @if(!empty($spec['title']) || !empty($spec['content']))
                             <div class="re-spec-chip">
                                 @if(!empty($spec['icon']))
-                                    <img src="{{ \SkillDo\Cms\Support\File::url($spec['icon']) }}" alt="" class="re-spec-icon">
+                                    <img src="{{ Image::source($spec['icon'])->link() }}" alt="" class="re-spec-icon">
                                 @else
                                     <i class="fa-light fa-check-circle"></i>
                                 @endif
