@@ -114,7 +114,8 @@ class PropertyCategory extends Model
                 Cache::delete('breadcrumb_property_detail_', true);
             }
 
-            Cache::delete('menu-', true);
+            //Cache menu đặt khoá 'menu_id_*', 'menu_items_*', 'menu_location_*' -> prefix phải là 'menu_'
+            Cache::delete('menu_', true);
 
             Cache::delete('property_categories_', true);
         });
