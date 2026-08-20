@@ -29,7 +29,9 @@
                 {
                     const slidesCount = carousel.find('.swiper-slide').length;
 
-                    return slidesCount < numberShow ? {loop: false} : {loop: true};
+                    // WD-45: PHẢI là <=. Số slide BẰNG số cột thì không có gì để chạy vòng; bật loop khiến
+                    // Swiper nhân bản slide rồi đặt khung nhìn vào một bản clone -> thứ tự hiện ra bị xoay.
+                    return slidesCount <= numberShow ? {loop: false} : {loop: true};
                 }
                 let config = {
                     ...shouldBeEnabled($(productList), 3), speed: 500, slidesPerView: 3, spaceBetween: 0,

@@ -81,7 +81,9 @@ class PropertyElementStyle1
     shouldBeEnabled($carousel, numberShow)
     {
         const slidesCount = $carousel.find('.swiper-slide').length;
-        if (slidesCount < numberShow) {
+        // WD-45: PHẢI là <=. Số slide BẰNG số cột thì không có gì để chạy vòng; bật loop khiến
+        // Swiper nhân bản slide rồi đặt khung nhìn vào một bản clone -> thứ tự hiện ra bị xoay.
+        if (slidesCount <= numberShow) {
             return { loop: false };
         }
         return { loop: true };
