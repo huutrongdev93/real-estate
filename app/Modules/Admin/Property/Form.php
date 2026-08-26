@@ -62,9 +62,12 @@ class Form
         $form->addTab('detail', 'Đặc điểm', 10, $formTabDetail);
         */
 
+        //O "Duong dan" tu ve dung cho theo co `language_slug_per_language`:
+        //tat thi dung dau nhom SEO nhu cu, bat thi tach thanh mot o cho moi ngon ngu.
+        $form->slugField(['label' => 'Slug'], ['groupName' => trans('form.group.seo')]);
+
         $form->right()
             ->addGroup('seo', trans('form.group.seo'))
-            ->text('slug', ['label' => 'Slug'])
             ->text('seo_title', ['label' => 'Meta title'])
             ->text('seo_keywords', ['label' => 'Meta Keyword'])
             ->textarea('seo_description', ['label' => 'Meta Description']);

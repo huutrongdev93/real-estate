@@ -45,9 +45,12 @@ class Form
 
         $formSeo = new \SkillDo\Cms\FormAdmin\FormAdminLocation($form);
 
+        //O "Duong dan" tu ve dung cho theo co `language_slug_per_language`:
+        //tat thi dung dau nhom SEO nhu cu, bat thi tach thanh mot o cho moi ngon ngu.
+        $form->slugField(['label' => trans('admin::form.seo.slug')], ['location' => $formSeo, 'groupName' => trans('admin::form.group.seo')]);
+
         $formSeo
             ->addGroup('seo', trans('admin::form.group.seo'))
-            ->text('slug', ['label' => trans('admin::form.seo.slug')])
             ->text('seo_title', ['label' => trans('admin::form.seo.title')])
             ->text('seo_keywords', ['label' => trans('admin::form.seo.keywords')])
             ->textarea('seo_description', ['label' => trans('admin::form.seo.description')]);
