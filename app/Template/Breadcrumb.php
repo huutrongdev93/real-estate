@@ -118,6 +118,11 @@ Class Breadcrumb
     {
         $object = Cms::getData('object');
 
+        if(noItems($object))
+        {
+            return $breadcrumb;
+        }
+
         $cacheId = 'breadcrumb_property_detail_'.$object->id.'_'.$languageCurrent;
 
         if(Cache::has($cacheId))
