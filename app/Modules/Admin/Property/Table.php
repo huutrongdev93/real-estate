@@ -140,6 +140,7 @@ class Table extends SKDObjectTable
                 'trash'       => $trash == 0,
                 'id'          => $item->id,
                 'model'       => Property::class,
+                'module'      => $this->module,
                 'description' => trans('message.page.confirmDelete', ['title' => html_escape($item->name)]),
             ]);
         }

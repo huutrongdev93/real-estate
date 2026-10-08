@@ -27,7 +27,7 @@ class PropertyIndexBreadcrumbElement extends Element
         {
             $form->tab('align', ['label' => 'Căn chỉnh', 'cssStyle' => true])->options([
                 'start' => '<i class="fa-thin fa-align-left"></i>&nbsp;Trái',
-                'center' => '<i class="fa-thin fa-align-center"></i>&nbsp;Giửa',
+                'center' => '<i class="fa-thin fa-align-center"></i>&nbsp;Giữa',
                 'end' => 'Phải&nbsp; <i class="fa-thin fa-align-right"></i>'
             ])->display('inline');
 

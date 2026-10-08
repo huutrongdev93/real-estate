@@ -72,6 +72,7 @@ class Table extends SKDObjectTable
         $listButton['delete'] = Admin::btnDelete([
             'id'          => $item->id,
             'model'       => PropertyFeedback::class,
+            'module'      => $this->module,
             'description' => trans('message.page.confirmDelete', ['title' => html_escape($item->name)]),
         ]);
 
