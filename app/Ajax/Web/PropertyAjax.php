@@ -213,7 +213,7 @@ class PropertyAjax
 
         Cache::save('re_booking_new_count', $count);
 
-        response()->success(trans('ajax.save.success'));
+        response()->success(trans('real-estate::ajax.booking.success'));
     }
 
     static function wishlist(Request $request): void

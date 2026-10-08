@@ -13,7 +13,7 @@
             </label>
             <label class="form-group has-feedback">
                 <i class="fa-thin fa-envelope"></i>
-                <input name="email" id="customer-email" type="text" class="input" placeholder="Nhập email" required/>
+                <input name="email" id="customer-email" type="email" class="input" placeholder="Nhập email (*)" required/>
             </label>
             <label class="form-group has-feedback">
                 <i class="fa-thin fa-phone"></i>
