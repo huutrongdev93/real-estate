@@ -66,7 +66,7 @@ class Table extends SKDObjectTable
             'id'          => $item->id,
             'model'       => Booking::class,
             'module'      => $this->module,
-            'description' => trans('message.page.confirmDelete', ['title' => html_escape($item->name)]),
+            'description' => trans('admin::message.page.confirmDelete', ['title' => html_escape($item->name)]),
         ]);
 
         return $listButton;

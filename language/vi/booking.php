@@ -8,7 +8,7 @@ return [
     'table.name'        => 'Tên',
     'table.phone'       => 'Số điện thoại',
     'table.email'       => 'Email',
-    'table.object_id'   => 'ID',
+    'table.object_id'   => 'Mã tin',
     'table.created'     => 'Ngày đăng ký',
     'table.action'      => 'Hành động',
 ];

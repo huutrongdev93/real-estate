@@ -112,7 +112,8 @@ class Table extends SKDObjectTable
             $listButton['restore'] = Admin::btnRestore([
                 'id'          => $item->id,
                 'model'       => Property::class,
-                'des'         => trans('message.page.confirmRestore', ['title' => html_escape($item->name)]),
+                'module'      => $this->module,
+                'des'         => trans('admin::message.page.confirmRestore', ['title' => html_escape($item->name)]),
             ]);
         }
 
@@ -141,7 +142,7 @@ class Table extends SKDObjectTable
                 'id'          => $item->id,
                 'model'       => Property::class,
                 'module'      => $this->module,
-                'description' => trans('message.page.confirmDelete', ['title' => html_escape($item->name)]),
+                'description' => trans('admin::message.page.confirmDelete', ['title' => html_escape($item->name)]),
             ]);
         }
 
