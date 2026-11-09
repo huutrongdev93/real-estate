@@ -2,12 +2,19 @@
 namespace RealEstate\Services;
 
 use RealEstate\Models\PropertyCategory;
+use SkdSeo\Services\SitemapService;
 
+/**
+ * Sitemap danh mục bất động sản. `lastmod` là ngày sửa thật của từng danh mục
+ * (trước đây truyền hằng `DATE_ATOM` nên luôn bằng giờ hiện tại).
+ */
 class SitemapPropertyCategory
 {
     static function register($listSiteMap)
     {
-        $listSiteMap['property-category'] = ['date' => DATE_ATOM];
+        if(!class_exists(SitemapService::class)) return $listSiteMap;
+
+        $listSiteMap['property-category'] = ['date' => SitemapService::maxDate(PropertyCategory::query())];
 
         return $listSiteMap;
     }
@@ -16,14 +23,14 @@ class SitemapPropertyCategory
     {
         $object = PropertyCategory::all();
 
-        $sitemap->setXml('<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">');
+        $sitemap->openUrlset();
 
         foreach ($object as $item)
         {
-            $sitemap->itemUrl($item->slug, DATE_ATOM, 'weekly', 0.5);
+            $sitemap->itemUrl($item->slug, SitemapService::itemDate($item), 'weekly', 0.5, SitemapService::itemImages($item));
         }
 
-        $sitemap->setXml('</urlset>');
+        $sitemap->closeUrlset();
 
         return $sitemap;
     }
