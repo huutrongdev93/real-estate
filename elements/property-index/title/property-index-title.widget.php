@@ -35,6 +35,14 @@ class PropertyIndexTitleElement extends Element
         PropertyIndex::heading();
     }
 
+    /** Thành phần con để bấm chọn trong trình dựng (tên danh mục lấy từ DB nên chỉ khai field kiểu dáng) */
+    public function parts(): array
+    {
+        return [
+            'title' => ['selector' => 'h1', 'label' => 'Tiêu đề trang', 'field' => 'titleStyle'],
+        ];
+    }
+
     public function cssBuilder(): string
     {
         $this->cssSelector('h1', [

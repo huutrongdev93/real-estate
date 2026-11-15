@@ -252,6 +252,14 @@ class PropertyElementStyle15 extends Element
         ];
     }
 
+    /** Thành phần con để bấm chọn trong trình dựng (chỉ field kiểu dáng, không sửa chữ trực tiếp) */
+    public function parts(): array
+    {
+        return [
+            'tabs' => ['selector' => '.property-s15-categories li a', 'label' => 'Tab', 'field' => 'tabButtonTxt'],
+        ];
+    }
+
     public function cssBuilder(): string
     {
         if (!empty($this->options->desktopTabsWidth))

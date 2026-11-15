@@ -218,9 +218,10 @@ class PropertyAjax
 
     static function wishlist(Request $request): void
     {
-        $propertyId = $request->input('id');
+        // Ép số nguyên: id này được dùng làm khoá mảng và ghi vào cookie / user meta.
+        $propertyId = (int)$request->input('id');
 
-        if (empty($propertyId)) response()->error(trans('real-estate::ajax.wishlist.not_found'));
+        if ($propertyId <= 0) response()->error(trans('real-estate::ajax.wishlist.not_found'));
 
         $isLoggedIn = Auth::check();
 
@@ -244,6 +245,9 @@ class PropertyAjax
         }
         else
         {
+            // Giới hạn kích thước danh sách để cookie / meta không phình vô hạn.
+            if (count($userWishlist) >= 200) response()->error(trans('real-estate::ajax.wishlist.not_found'));
+
             $userWishlist[$propertyId] = $propertyId;
             $message = trans('real-estate::ajax.wishlist.add');
             $status  = 'add';

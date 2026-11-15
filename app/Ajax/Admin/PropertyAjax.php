@@ -31,6 +31,13 @@ class PropertyAjax
             response()->error(trans('real-estate::ajax.property.not_found'));
         }
 
+        // Chỉ cho đảo các cột nằm trong danh sách collections (status1..); trước đây client gửi tên
+        // cột nào cũng được đảo 0/1 (kể cả public, order...).
+        if(!is_string($collection) || !array_key_exists($collection, (array)\RealEstate\Supports\RealEstateHelper::collections()))
+        {
+            response()->error(trans('real-estate::ajax.property.not_found'));
+        }
+
         if(!isset($property->{$collection}))
         {
             response()->error(trans('real-estate::ajax.property.not_found'));

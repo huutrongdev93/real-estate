@@ -53,6 +53,15 @@ class PropertyIndexBreadcrumbElement extends Element
         echo Theme::breadcrumb()->render();
     }
 
+    /** Thành phần con để bấm chọn trong trình dựng (breadcrumb lấy từ hệ thống nên chỉ khai field kiểu dáng) */
+    public function parts(): array
+    {
+        return [
+            'box'   => ['selector' => '.breadcrumb', 'label' => 'Khung breadcrumb', 'field' => 'boxStyle'],
+            'links' => ['selector' => '.breadcrumb ol a', 'label' => 'Chữ breadcrumb', 'field' => 'titleStyle'],
+        ];
+    }
+
     public function cssBuilder(): string
     {
         if(!empty($this->options->align))

@@ -53,6 +53,15 @@ class PropertyDetailContentBoxElement extends Element
         ]);
     }
 
+    /** Thành phần con để bấm chọn / sửa chữ trực tiếp trong trình dựng */
+    public function parts(): array
+    {
+        return [
+            'box'   => ['selector' => '.element-box', 'label' => 'Khung', 'field' => 'boxStyle'],
+            'title' => ['selector' => '.element-box .element-heading', 'label' => 'Tiêu đề', 'field' => 'titleStyle', 'content' => 'title', 'edit' => 'text'],
+        ];
+    }
+
     public function cssBuilder(): string
     {
         $this->cssSelector('.element-box',

@@ -100,6 +100,14 @@ class PropertyElementStyle1 extends Element
         ]);
     }
 
+    /** Thành phần con để bấm chọn trong trình dựng (dữ liệu BĐS lấy từ DB nên chỉ khai field kiểu dáng) */
+    public function parts(): array
+    {
+        return [
+            'arrow' => ['selector' => '.box-content .arrow', 'label' => 'Nút điều hướng', 'field' => 'arrowStyle'],
+        ];
+    }
+
     public function cssBuilder(): string
     {
         $this->cssSelector('.box-content .arrow', [
