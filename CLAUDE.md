@@ -121,3 +121,8 @@ Frontend: nội dung trang qua action `content_property_index|detail|index_wishl
 5. `views/admin/property/table/child.blade.php` — N+1: `Features::find()` trong 2 vòng `@foreach` (utilities + furniture); nên `whereIn` 1 lần như `PropertyDetail::sectionUtilities` đã làm đúng.
 6. `Modules/Admin/Property/Metaboxs.php:155` — `Property::insert(['id' => $id, ...])` với id đã tồn tại — chỉ đúng nếu `Model::insert` của framework hỗ trợ upsert theo PK (cần xác nhận trước khi bắt chước pattern này).
 7. Tính năng "dự án" (ProjectHelper + language `project.php`) chưa triển khai đầy đủ ở admin/web — đừng coi là tính năng hoạt động.
+
+## Đã sửa (15/11/2026)
+
+- `Web\PropertyAjax::booking` và `feedback`: RateLimiter theo IP 5 lần / 10 phút mỗi form (lõi cũ chưa có thì bỏ qua); `object_id` ép int và phải là property có thật (feedback cũng vậy, `object_name` lấy từ DB thay vì tin client); `url` chỉ nhận cùng host (lưu dạng tương đối) còn khác host thì bỏ; cắt độ dài name/phone/email/topic/feedback/url.
+- Thêm khoá ngôn ngữ `real-estate::ajax.too_many` (vi/en/zh).

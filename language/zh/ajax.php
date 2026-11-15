@@ -23,6 +23,7 @@ return [
 
     // 反馈 / 举报
     'feedback.success'      => '举报已提交',
+    'too_many'              => '请求过于频繁，请稍后再试',
     'feedback.error'        => '举报提交失败',
 
     // 标签集合

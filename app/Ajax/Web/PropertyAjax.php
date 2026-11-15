@@ -162,8 +162,57 @@ class PropertyAjax
         ]);
     }
 
+    /**
+     * Giới hạn tần suất theo IP: 5 lần / 10 phút cho mỗi loại form (tính cả lần lỗi).
+     * Lõi cũ chưa có RateLimiter thì bỏ qua.
+     */
+    protected static function throttle(Request $request, string $name): void
+    {
+        if (!class_exists(\SkillDo\Support\RateLimiter::class)) return;
+
+        $key = \SkillDo\Support\RateLimiter::key('real-estate-' . $name, (string) $request->ip());
+
+        if (\SkillDo\Support\RateLimiter::tooManyAttempts($key, 5))
+        {
+            response()->error(trans('real-estate::ajax.too_many'));
+        }
+
+        \SkillDo\Support\RateLimiter::hit($key, 600);
+    }
+
+    /**
+     * Chỉ nhận URL cùng host với site (trả về dạng đường dẫn tương đối); khác host thì bỏ.
+     */
+    protected static function localUrl($url): string
+    {
+        $url = is_string($url) ? trim($url) : '';
+
+        if ($url === '') return '';
+
+        $parts = parse_url($url);
+
+        if ($parts === false) return '';
+
+        if (!empty($parts['scheme']) || !empty($parts['host']))
+        {
+            $siteHost = parse_url(\Url::base(), PHP_URL_HOST);
+
+            if (empty($parts['host']) || strcasecmp((string) $parts['host'], (string) $siteHost) !== 0) return '';
+
+            if (!in_array(strtolower($parts['scheme'] ?? 'http'), ['http', 'https'], true)) return '';
+        }
+
+        $path = trim((string) ($parts['path'] ?? ''), '/');
+
+        if (!empty($parts['query'])) $path .= '?' . $parts['query'];
+
+        return mb_substr($path, 0, 255);
+    }
+
     static function booking(Request $request): void
     {
+        static::throttle($request, 'booking');
+
         $validate = $request->validate([
             'object_id'   => Rule::make('object_id')->notEmpty(),
             'object_type' => Rule::make('object_type')->notEmpty(),
@@ -174,20 +223,15 @@ class PropertyAjax
 
         if ($validate->fails()) response()->error($validate->errors());
 
-        $objectId   = $request->input('object_id');
+        $objectId   = (int) $request->input('object_id');
 
         $objectType = $request->input('object_type');
 
-        $url        = $request->input('url');
-
-        if (!empty($url))
-        {
-            $url = trim(trim(str_replace(\Url::base(), '', $url)), '/');
-        }
+        $url        = static::localUrl($request->input('url'));
 
         $object = null;
 
-        if ($objectType == 'property')
+        if ($objectType == 'property' && $objectId > 0)
         {
             $object = Property::find($objectId);
         }
@@ -198,9 +242,9 @@ class PropertyAjax
         }
 
         $error = Booking::insert([
-            'name'        => trim($request->input('name')),
-            'phone'       => trim($request->input('phone')),
-            'email'       => trim($request->input('email')),
+            'name'        => mb_substr(trim((string) $request->input('name')), 0, 100),
+            'phone'       => mb_substr(trim((string) $request->input('phone')), 0, 20),
+            'email'       => mb_substr(trim((string) $request->input('email')), 0, 100),
             'url'         => $url,
             'object_type' => $objectType,
             'object_id'   => $object->id,
@@ -269,6 +313,8 @@ class PropertyAjax
     {
         if (!$request->isMethod('post')) return;
 
+        static::throttle($request, 'feedback');
+
         $validate = $request->validate([
             'feedback_topic' => Rule::make(trans('real-estate::property-feedback.table.topic'))->notEmpty(),
             'phone'          => Rule::make(trans('real-estate::booking.table.phone'))->notEmpty()->phone(['vi']),
@@ -279,15 +325,27 @@ class PropertyAjax
 
         $data = $request->input();
 
+        // object_id phải là bất động sản có thật; tên lấy từ DB, không tin object_name do client gửi
+        $objectId = (int) ($data['object_id'] ?? 0);
+
+        $property = ($objectId > 0) ? Property::find($objectId) : null;
+
+        if (!hasItems($property))
+        {
+            response()->error(trans('real-estate::ajax.booking.not_found'));
+        }
+
+        $topic = is_array($data['feedback_topic']) ? implode(', ', array_map('strval', $data['feedback_topic'])) : (string) $data['feedback_topic'];
+
         PropertyFeedback::insert([
-            'name'        => trim($data['name'] ?? ''),
-            'phone'       => trim($data['phone']),
-            'email'       => trim($data['email']),
-            'topic'       => is_array($data['feedback_topic']) ? implode(', ', $data['feedback_topic']) : $data['feedback_topic'],
-            'feedback'    => trim($data['feedback'] ?? ''),
-            'url'         => trim($data['url'] ?? ''),
-            'object_id'   => trim($data['object_id'] ?? ''),
-            'object_name' => trim($data['object_name'] ?? ''),
+            'name'        => mb_substr(trim((string) ($data['name'] ?? '')), 0, 100),
+            'phone'       => mb_substr(trim((string) $data['phone']), 0, 20),
+            'email'       => mb_substr(trim((string) $data['email']), 0, 100),
+            'topic'       => mb_substr($topic, 0, 255),
+            'feedback'    => mb_substr(trim((string) ($data['feedback'] ?? '')), 0, 2000),
+            'url'         => static::localUrl($data['url'] ?? ''),
+            'object_id'   => $property->id,
+            'object_name' => $property->name,
         ]);
 
         $count = PropertyFeedback::where('read', 0)->count();

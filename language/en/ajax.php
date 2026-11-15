@@ -23,6 +23,7 @@ return [
 
     // Feedback / Report
     'feedback.success'      => 'Report submitted successfully',
+    'too_many'              => 'Too many requests, please try again in a few minutes',
     'feedback.error'        => 'Failed to submit report',
 
     // Collection

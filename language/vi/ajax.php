@@ -23,6 +23,7 @@ return [
 
     // Feedback / Báo cáo
     'feedback.success'      => 'Đã gửi báo cáo',
+    'too_many'              => 'Bạn gửi quá nhiều lần, vui lòng thử lại sau ít phút',
     'feedback.error'        => 'Gửi báo cáo thất bại',
 
     // Collection
