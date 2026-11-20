@@ -10,6 +10,12 @@ class PropertyAjax
 {
     static function saveCollection(Request $request): void
     {
+        // Ajax::admin() chỉ chặn ở mức loggin_admin: kiểm quyền theo chức năng.
+        if(!\SkillDo\Support\Auth::hasCap('property_edit'))
+        {
+            response()->error(trans('admin::app.categoryAccessForbidden'));
+        }
+
         $validate = $request->validate([
             'propertyId' => Rule::make(trans('real-estate::property.title'))->notEmpty()->integer()->min(1),
             'collection' => Rule::make(trans('real-estate::property.collection.potential'))->notEmpty(),
@@ -53,6 +59,12 @@ class PropertyAjax
 
     public static function searchAddress(Request $request): void
     {
+        // Ajax::admin() chỉ chặn ở mức loggin_admin: kiểm quyền theo chức năng.
+        if(!\SkillDo\Support\Auth::hasCap('property_list'))
+        {
+            response()->error(trans('admin::app.categoryAccessForbidden'));
+        }
+
         $q = trim($request->input('q', ''));
 
         if (mb_strlen($q) < 2)
